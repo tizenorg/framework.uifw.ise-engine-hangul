@@ -54,13 +54,12 @@ class HangulFactory : public IMEngineFactoryBase
 
     String                   m_keyboard_layout;
 
-    bool                     m_always_use_jamo;
-
     bool                     m_show_candidate_comment;
     bool                     m_lookup_table_vertical;
     bool                     m_use_ascii_mode;
     bool                     m_commit_by_word;
     bool                     m_hanja_mode;
+    bool                     m_auto_reorder;
 
     KeyEventList             m_hangul_keys;
     KeyEventList             m_hanja_keys;
@@ -176,7 +175,6 @@ private:
 
     void   toggle_hangul_mode();
     void   toggle_hanja_mode();
-    void   change_keyboard_layout(const String &layout);
 
     /* property handling */
     void   register_all_properties();
@@ -194,6 +192,12 @@ private:
 
     /* match key event */
     bool   match_key_event (const KeyEventList &keys, const KeyEvent &key) const;
+
+    /* callback from libhangul */
+    static bool on_transition (HangulInputContext *hic,
+                               ucschar c,
+                               const ucschar *preedit,
+                               void *data);
 };
 #endif
 
