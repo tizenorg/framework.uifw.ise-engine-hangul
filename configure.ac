@@ -1,13 +1,13 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(scim-hangul, 0.4.0, choe.hwanjing@gmail.com) #do not forget to update skim/configure.in.in
+AC_INIT(scim-hangul, 1.0.0, choe.hwanjing@gmail.com) #do not forget to update skim/configure.in.in
 AC_CONFIG_SRCDIR([src/scim_hangul_imengine.h])
 
 # Save this value here, since automake will set cflags and cxxflags later
 cflags_set=${CFLAGS+set}
 cppflags_set=${CPPFLAGS+set}
 
-SCIM_HANGUL_MAJOR_VERSION=0
-SCIM_HANGUL_MINOR_VERSION=4
+SCIM_HANGUL_MAJOR_VERSION=1
+SCIM_HANGUL_MINOR_VERSION=0
 SCIM_HANGUL_MICRO_VERSION=0
 
 SCIM_HANGUL_VERSION=$SCIM_HANGUL_MAJOR_VERSION.$SCIM_HANGUL_MINOR_VERSION.$SCIM_HANGUL_MICRO_VERSION
@@ -103,11 +103,16 @@ fi
 AM_CONDITIONAL(SCIM_BUILD_SKIM_SETUP, [test "$skim_support" = "yes"])
 
 SCIM_ICONDIR=`$PKG_CONFIG --variable=icondir scim`
+SCIM_PKGDIR=`$PKG_CONFIG --variable=pkgdir scim`
 SCIM_MODULEDIR=`$PKG_CONFIG --variable=moduledir scim`
 SCIM_DATADIR=`$PKG_CONFIG --variable=scimdatadir scim`
 
 if test "x$SCIM_ICONDIR" = "x"; then
   SCIM_ICONDIR=${datadir}/scim/icons
+fi
+
+if test "x$SCIM_PKGDIR" = "x"; then
+  SCIM_PKGDIR=${datadir}/packages
 fi
 
 if test "x$SCIM_MODULEDIR" = "x"; then
@@ -119,6 +124,7 @@ if test "x$SCIM_DATADIR" = "x"; then
 fi
 
 AC_SUBST(SCIM_ICONDIR)
+AC_SUBST(SCIM_PKGDIR)
 AC_SUBST(SCIM_MODULEDIR)
 AC_SUBST(SCIM_DATADIR)
 
